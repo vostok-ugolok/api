@@ -5,6 +5,7 @@ import os
 @dataclass
 class Dish:
     name: str
+    dish_type: str
     price: int
     image: str
     description: str 
@@ -14,8 +15,9 @@ class Dish:
 class DishCollection:
     def __init__(self):
         if not os.path.exists(self.path): open(self.path, 'w').close()
+        
         if self.dishes == []:
-           with open(self.path, 'r') as f:
+           with open(self.path, 'r', encoding='utf-8') as f:
                 self.dishes = json.load(f)
 
     def add(self, dish: dict):
@@ -33,15 +35,16 @@ class DishCollection:
         return False
     
     def serialize(self):
-        print(self.dishes)
-        with open(self.path, 'r') as f:
+        with open(self.path, 'r', encoding='utf-8') as f:
             prev = f.read()
 
-        with open(self.path, 'w') as f:
+        with open(self.path, 'w', encoding='utf-8') as f:
             try:
-                write = json.dumps([dish for dish in self.dishes], indent=2)
+                write = json.dumps([dish for dish in self.dishes], indent=2, ensure_ascii=False)
                 f.write(write)
-            except: f.write(prev)
+            except Exception as e: 
+                print(e)
+                f.write(prev)
 
 class Menu(DishCollection):
     def __init__(self, *dishes):

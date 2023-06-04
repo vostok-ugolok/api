@@ -5,20 +5,26 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-default_food = [Dish('Хачапури', 120, 'хачапури.jpg', 'Вкусная темка', 700, True), Dish('Лагман', '290', 'лагман.jpg', 'Тоже вкусная темка', 810, False)]
+default_food = [Dish('Хачапури', 'Горячее', 120, 'хачапури.jpg', 'Вкусная темка', 700, True), Dish('Лагман', 'Супы', '290', 'лагман.jpg', 'Тоже вкусная темка', 810, False)]
 # menu = Menu(*default_food)
 menu = Menu()
 # menu.serialize()
 feed = Feed()
 # feed.serialize()
 
-@app.route('/food/all', methods=['GET'])
+@app.route('/food/get', methods=['GET'])
 def all_food():
-    return menu.dishes, 200
+    result = menu.dishes
+    return_avaiable = request.args.get('avaiable')
+    return_type = request.args.get('dish_type')
 
-@app.route('/food/avaiable', methods=['GET'])
-def avaiable_food():
-    return list(filter(lambda d: d['avaiable'], menu.dishes)), 200
+    if return_avaiable != None: 
+        result = list(filter(lambda d: str(d['avaiable']) == return_avaiable, result))
+    
+    if return_type != None: 
+        result = list(filter(lambda d: d['dish_type'] == return_type, result))
+    
+    return json.dumps(result, ensure_ascii=False), 200
 
 @app.route('/food/add', methods=['POST'])
 def add_dish():
