@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Винегрет",
+    "price": 222,
+    "image": "Пиво.jpg",
+    "description": "Ыуауауауа",
+    "mass": 111,
+    "avaiable": true,
+    "dish_type": "Алкоголь"
+  }
+]
