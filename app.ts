@@ -73,6 +73,7 @@ app.post('/order/add', (req, res) => {
 
     if (req.body.phone[0] != '+') req.body.phone = '+7' + req.body.phone.substring(1)
     const order = new Order(req.body.name, req.body.phone, req.body.adress, 'CREATED');
+    while (orders.ids().includes(order.order_id)) order.assign_id();
 
     const ret = orders.add(order)
     if (!ret) {
@@ -80,7 +81,7 @@ app.post('/order/add', (req, res) => {
         return;
     }
     orders.serialize()
-    res.send('OK')
+    res.send(order.order_id)
 })
 
 app.listen(port, () => {
