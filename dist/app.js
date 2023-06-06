@@ -77,6 +77,24 @@ app.post('/order/add', (req, res) => {
     orders.serialize();
     res.send(order.order_id);
 });
+app.post('/order/update', (req, res) => {
+    let id = req.body.order_id;
+    if (id === undefined)
+        id = req.query.id;
+    const new_state = req.body.new_state;
+    if ([id, new_state].includes(undefined)) {
+        res.send("Invalid parameters (order_id: number and new_state: string fields must be specified)");
+        return;
+    }
+    const order = orders.data.find(e => e.order_id == id);
+    if (order === undefined) {
+        res.send("No order with such id");
+        return;
+    }
+    order.state = new_state;
+    orders.serialize();
+    res.send('OK');
+});
 app.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
 });

@@ -3,7 +3,7 @@
     "name": "Я",
     "phone": "+79223048855",
     "adress": "Боровая, 24а",
-    "state": "CREATED",
+    "state": "PROCESSING",
     "creation_time": "06.06.2023 15:20:21",
     "order_id": "127820",
     "unique_id": "+79223048855"
@@ -30,7 +30,7 @@
     "name": "Я",
     "phone": "+79923048811",
     "adress": "Боровая, 24а",
-    "state": "CREATED",
+    "state": "PROCESSING",
     "creation_time": "06.06.2023 20:03:07",
     "order_id": "105296",
     "unique_id": "+79923048811"
