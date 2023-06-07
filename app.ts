@@ -111,9 +111,10 @@ app.post('/order/state/update', (req, res) => {
     orders.serialize()
     res.send('OK')
 
-    if (order.state === 'READY'){
-        io.emit('ORDER IS READY', order.order_id)
-    }
+    if (req.body.message !== undefined)
+        io.emit('ORDER STATE CHANGED', [order.order_id, order.state, req.body.message])
+
+    else io.emit('ORDER STATE CHANGED', [order.order_id, order.state])
 })
 
 server.listen(port, () => {
