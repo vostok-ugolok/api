@@ -7,22 +7,23 @@ const express_1 = __importDefault(require("express"));
 const serializable_collection_1 = __importDefault(require("./serializable_collection"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const order_1 = require("./order");
+const socket_io_1 = require("socket.io");
+const http_1 = __importDefault(require("http"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 const port = 5000;
 const menu = new serializable_collection_1.default('data/menu.json');
 const feed = new serializable_collection_1.default('data/feed.json');
 const orders = new serializable_collection_1.default('data/orders.json');
-app.get('/', (req, res) => {
-    res.send(`Avaiable methods:\n
-    /food/get\n
-    /food/add\n
-    /food/remove\n
-    /content/feed\n
-    /content/feed/set\n
-    /order/get\n
-    /order/add`);
+const server = http_1.default.createServer(app);
+const io = new socket_io_1.Server(server, {
+    cors: {
+        origin: "*"
+    }
 });
+io.on('connection', (socket) => { });
 app.get('/food/get', (req, res) => {
     res.send(JSON.stringify(menu.data));
 });
@@ -77,7 +78,7 @@ app.post('/order/add', (req, res) => {
     orders.serialize();
     res.send(order.order_id);
 });
-app.post('/order/update', (req, res) => {
+app.post('/order/state/update', (req, res) => {
     let id = req.body.order_id;
     if (id === undefined)
         id = req.query.id;
@@ -87,6 +88,10 @@ app.post('/order/update', (req, res) => {
         return;
     }
     const order = orders.data.find(e => e.order_id == id);
+    if (new_state == (order === null || order === void 0 ? void 0 : order.state)) {
+        res.send("State not affected");
+        return;
+    }
     if (order === undefined) {
         res.send("No order with such id");
         return;
@@ -94,8 +99,11 @@ app.post('/order/update', (req, res) => {
     order.state = new_state;
     orders.serialize();
     res.send('OK');
+    if (order.state === 'READY') {
+        io.emit('ORDER IS READY', order.order_id);
+    }
 });
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
 });
 // @app.route('/food/get', methods=['GET'])

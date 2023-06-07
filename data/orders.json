@@ -3,7 +3,7 @@
     "name": "Я",
     "phone": "+79223048855",
     "adress": "Боровая, 24а",
-    "state": "PROCESSING",
+    "state": "READY",
     "creation_time": "06.06.2023 15:20:21",
     "order_id": "127820",
     "unique_id": "+79223048855"
@@ -21,7 +21,7 @@
     "name": "Я",
     "phone": "+79123048855",
     "adress": "Боровая, 24а",
-    "state": "CREATED",
+    "state": "READY",
     "creation_time": "06.06.2023 15:20:57",
     "order_id": "694008",
     "unique_id": "+79123048855"
@@ -43,5 +43,14 @@
     "creation_time": "06.06.2023 20:05:51",
     "order_id": "167710",
     "unique_id": "+79226677189"
+  },
+  {
+    "name": "Никита Чен",
+    "phone": "+79630118799",
+    "adress": "",
+    "state": "READY",
+    "creation_time": "06.06.2023 22:10:36",
+    "order_id": "649873",
+    "unique_id": "+79630118799"
   }
 ]

@@ -4,24 +4,25 @@ import { FeedFood, MenuFood } from './food';
 import { ok } from 'assert';
 import bodyParser from 'body-parser';
 import { Order } from './order';
+import { Server } from 'socket.io';
+import http from 'http';
+import CORS from 'cors';
 
 const app = express();
+app.use(CORS())
 app.use(bodyParser.json())
 const port = 5000;
 const menu = new Collection<MenuFood>('data/menu.json');
 const feed = new Collection<FeedFood>('data/feed.json');
 const orders = new Collection<Order>('data/orders.json');
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+    origin: "*"
+  }
+});
 
-app.get('/', (req, res) => {
-    res.send(`Avaiable methods:\n
-    /food/get\n
-    /food/add\n
-    /food/remove\n
-    /content/feed\n
-    /content/feed/set\n
-    /order/get\n
-    /order/add`)
-})
+io.on('connection', (socket: any) => {});
 
 app.get('/food/get', (req, res) => {
     res.send(JSON.stringify(menu.data))
@@ -96,6 +97,11 @@ app.post('/order/state/update', (req, res) => {
     }
 
     const order = orders.data.find(e => e.order_id == id);
+    if (new_state == order?.state){
+        res.send("State not affected")
+        return;
+    }
+
     if (order === undefined) {
         res.send("No order with such id");
         return;
@@ -104,9 +110,13 @@ app.post('/order/state/update', (req, res) => {
     order.state = new_state
     orders.serialize()
     res.send('OK')
+
+    if (order.state === 'READY'){
+        io.emit('ORDER IS READY', order.order_id)
+    }
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
 })
 
