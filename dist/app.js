@@ -23,7 +23,7 @@ const io = new socket_io_1.Server(server, {
         origin: "*"
     }
 });
-io.on('connection', (socket) => { });
+io.on('connection', (socket) => { io.emit('connection'); });
 app.get('/food/get', (req, res) => {
     res.send(JSON.stringify(menu.data));
 });

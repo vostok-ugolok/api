@@ -11,7 +11,7 @@ import CORS from 'cors';
 const app = express();
 app.use(CORS())
 app.use(bodyParser.json())
-const port = 5000;
+const port = http://185.246.64.64:4999/;
 const menu = new Collection<MenuFood>('data/menu.json');
 const feed = new Collection<FeedFood>('data/feed.json');
 const orders = new Collection<Order>('data/orders.json');
@@ -22,7 +22,7 @@ const io = new Server(server, {
   }
 });
 
-io.on('connection', (socket: any) => {});
+io.on('connection', (socket: any) => { io.emit('connection') });
 
 app.get('/food/get', (req, res) => {
     res.send(JSON.stringify(menu.data))
