@@ -13,7 +13,7 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
-const port = 5000;
+const port = 4999;
 const menu = new serializable_collection_1.default('data/menu.json');
 const feed = new serializable_collection_1.default('data/feed.json');
 const orders = new serializable_collection_1.default('data/orders.json');
@@ -25,7 +25,13 @@ const io = new socket_io_1.Server(server, {
 });
 io.on('connection', (socket) => { io.emit('connection'); });
 app.get('/food/get', (req, res) => {
-    res.send(JSON.stringify(menu.data));
+    const filter = req.query.type;
+    if (filter === undefined)
+        res.send(JSON.stringify(menu.data));
+    else if (filter.toString().includes('/'))
+        res.send(JSON.stringify(menu.data.filter(food => food.identifier === filter.toString())));
+    else
+        res.send(JSON.stringify(menu.data.filter(food => food.identifier.split('/')[0] == filter.toString().split('/')[0])));
 });
 app.post('/food/add', (req, res) => {
     const ret = menu.add(req.body);

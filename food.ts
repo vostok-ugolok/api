@@ -4,7 +4,7 @@ export class Food{
     unique_id : string;
 
     constructor(public name: string,
-        public dish_type: string,
+        public identifier: string,
         public price: number,
         public image: string,
         public description: string,
@@ -18,9 +18,9 @@ export class Food{
 export class MenuFood extends Food{}
 
 export class FeedFood extends Food{
-    constructor(name: string, dish_type: string, price: number,
+    constructor(name: string, identifier: string, price: number,
     image: string, description: string, mass: number) {
-        super(name, dish_type, price, image, description, mass, true);
+        super(name, identifier, price, image, description, mass, true);
     }
 }
 

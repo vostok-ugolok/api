@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeedFood = exports.MenuFood = exports.Food = void 0;
 const crypto_1 = require("crypto");
 class Food {
-    constructor(name, dish_type, price, image, description, mass, avaiable) {
+    constructor(name, identifier, price, image, description, mass, avaiable) {
         this.name = name;
-        this.dish_type = dish_type;
+        this.identifier = identifier;
         this.price = price;
         this.image = image;
         this.description = description;
@@ -19,8 +19,8 @@ class MenuFood extends Food {
 }
 exports.MenuFood = MenuFood;
 class FeedFood extends Food {
-    constructor(name, dish_type, price, image, description, mass) {
-        super(name, dish_type, price, image, description, mass, true);
+    constructor(name, identifier, price, image, description, mass) {
+        super(name, identifier, price, image, description, mass, true);
     }
 }
 exports.FeedFood = FeedFood;

@@ -1,11 +1,31 @@
 [
   {
     "name": "Винегрет",
-    "price": 222,
-    "image": "Пиво.jpg",
-    "description": "Ыуауауауа",
-    "mass": 111,
+    "price": 149,
+    "image": "Винегрет.jpg",
+    "description": "Вкусный холодный салат",
+    "mass": 200,
     "avaiable": true,
-    "dish_type": "Алкоголь"
+    "identifier": "salad/vinegret"
+  },
+
+  {
+    "name": "Оливье",
+    "price": 149,
+    "image": "Оливье.jpg",
+    "description": "Вкусный холодный салат",
+    "mass": 200,
+    "avaiable": true,
+    "identifier": "salad/olivier"
+  },
+
+  {
+    "name": "Лагман",
+    "price": 229,
+    "image": "Лагман.jpg",
+    "description": "Вкусный горячий суп",
+    "mass": 400,
+    "avaiable": true,
+    "identifier": "soup/lagmane"
   }
 ]

@@ -1,4 +1,3 @@
-import { randomInt } from "crypto";
 
 export class Order {
     order_id: string;
@@ -17,12 +16,12 @@ export class Order {
         const now = new Date();
         this.creation_time = `${now.toLocaleDateString()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
 
-        this.order_id = (randomInt(899999) + 100000).toString()
+        this.order_id = (Math.floor(Math.random() * 899999) + 100000).toString()
         this.unique_id = this.phone;
     }
 
     assign_id(){
-        this.order_id = (randomInt(899999) + 100000).toString()
+        this.order_id = (Math.floor(Math.random() * 899999) + 100000).toString()
         this.unique_id = this.order_id;
     }
 }
