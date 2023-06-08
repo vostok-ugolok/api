@@ -10,6 +10,7 @@ import CORS from 'cors';
 
 const app = express();
 app.use(CORS())
+app.use('/images', express.static('img'),)
 app.use(bodyParser.json())
 const port = 4999;
 const menu = new Collection<MenuFood>('data/menu.json');

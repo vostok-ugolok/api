@@ -12,6 +12,7 @@ const http_1 = __importDefault(require("http"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.use('/images', express_1.default.static('img'));
 app.use(body_parser_1.default.json());
 const port = 4999;
 const menu = new serializable_collection_1.default('data/menu.json');
