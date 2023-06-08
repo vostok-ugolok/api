@@ -66,14 +66,14 @@ app.get('/order/get', (req, res) => {
         res.send(JSON.stringify(orders.data.filter(e => { var _a; return (_a = req.query.ids) === null || _a === void 0 ? void 0 : _a.toString().includes(e.order_id); })));
 });
 app.post('/order/add', (req, res) => {
-    if ([req.body.name, req.body.phone, req.body.adress].includes(undefined) ||
+    if ([req.body.name, req.body.phone, req.body.adress, req.body.content].includes(undefined) ||
         /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/.exec(req.body.phone) === null) {
         res.send("Invalid parameters");
         return;
     }
     if (req.body.phone[0] != '+')
         req.body.phone = '+7' + req.body.phone.substring(1);
-    const order = new order_1.Order(req.body.name, req.body.phone, req.body.adress, 'CREATED');
+    const order = new order_1.Order(req.body.name, req.body.phone, req.body.adress, 'CREATED', req.body.content);
     while (orders.ids().includes(order.order_id))
         order.assign_id();
     const ret = orders.add(order);

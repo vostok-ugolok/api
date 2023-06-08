@@ -1,74 +1,15 @@
 [
   {
-    "name": "Я",
-    "phone": "+79223048855",
-    "adress": "Боровая, 24а",
-    "state": "READY",
-    "creation_time": "06.06.2023 15:20:21",
-    "order_id": "127820",
-    "unique_id": "+79223048855"
-  },
-  {
-    "name": "Я",
-    "phone": "+79823048855",
-    "adress": "Боровая, 24а",
-    "state": "CREATED",
-    "creation_time": "06.06.2023 15:20:51",
-    "order_id": "848912",
-    "unique_id": "+79823048855"
-  },
-  {
-    "name": "Я",
-    "phone": "+79123048855",
-    "adress": "Боровая, 24а",
-    "state": "READY",
-    "creation_time": "06.06.2023 15:20:57",
-    "order_id": "694008",
-    "unique_id": "+79123048855"
-  },
-  {
-    "name": "Я",
-    "phone": "+79923048811",
-    "adress": "Боровая, 24а",
-    "state": "PROCESSING",
-    "creation_time": "06.06.2023 20:03:07",
-    "order_id": "105296",
-    "unique_id": "+79923048811"
-  },
-  {
-    "name": "Я",
-    "phone": "+79226677189",
-    "adress": "Боровая, 24а",
-    "state": "CREATED",
-    "creation_time": "06.06.2023 20:05:51",
-    "order_id": "167710",
-    "unique_id": "+79226677189"
-  },
-  {
-    "name": "Никита Чен",
-    "phone": "+79630118799",
-    "adress": "",
-    "state": "g",
-    "creation_time": "06.06.2023 22:10:36",
-    "order_id": "649873",
-    "unique_id": "+79630118799"
-  },
-  {
-    "name": "Рина Чан",
-    "phone": "+79921245388",
-    "adress": "ы",
-    "state": "CREATED",
-    "creation_time": "08.06.2023 10:23:11",
-    "order_id": "120094",
-    "unique_id": "+79921245388"
-  },
-  {
-    "name": "Рина Чан",
-    "phone": "+79112040055",
+    "name": "Антон Чон",
+    "phone": "+79120781929",
     "adress": "",
     "state": "CREATED",
-    "creation_time": "08.06.2023 10:23:23",
-    "order_id": "311646",
-    "unique_id": "+79112040055"
+    "creation_time": "08.06.2023 11:25:04",
+    "order_id": "831222",
+    "unique_id": "+79120781929",
+    "content": [
+      "salad/olivier",
+      "soup/lagmane"
+    ]
   }
 ]

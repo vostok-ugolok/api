@@ -31,7 +31,6 @@ class SerializeableCollection {
     }
     ids() {
         const names = [];
-        console.log(this.data);
         for (const f of this.data) {
             names.push(f.unique_id);
         }

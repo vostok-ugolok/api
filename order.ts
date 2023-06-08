@@ -6,9 +6,10 @@ export class Order {
     adress: string;
     state: string;
     creation_time: string;
+    content: string[]
 
     unique_id : string;
-    constructor(name: string, phone: string, adress: string, state: string){
+    constructor(name: string, phone: string, adress: string, state: string, content: string[]){
         this.name = name;
         this.phone = phone;
         this.adress = adress;
@@ -18,6 +19,18 @@ export class Order {
 
         this.order_id = (Math.floor(Math.random() * 899999) + 100000).toString()
         this.unique_id = this.phone;
+        this.content = content
+    }
+
+    add_dish(identifier: string): Order{
+        this.content.push(identifier)
+        return this;
+    }
+
+    add_dishes(identifiers: string[]): Order {
+        for (const id of identifiers)
+            this.content.push(id)
+        return this
     }
 
     assign_id(){
