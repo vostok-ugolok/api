@@ -46,6 +46,36 @@ app.get('/food/get', (req, res) => {
     res.send(JSON.stringify(resp));
 })
 
+app.post('/food/close/', (req, res) => {
+    const type = req.body.type
+    if (type === undefined){
+        res.send("Invalid parameters (type: string)")
+        return;
+    }
+
+    menu.data.map(food => {
+        if (food.identifier === type)
+            food.avaiable = false;
+    })
+    menu.serialize();
+    res.send('OK')
+})
+
+app.post('/food/open/', (req, res) => {
+    const type = req.body.type
+    if (type === undefined){
+        res.send("Invalid parameters (type: string)")
+        return;
+    }
+
+    menu.data.map(food => {
+        if (food.identifier === type)
+            food.avaiable = true;
+    })
+    menu.serialize();
+    res.send('OK')
+})
+
 app.post('/food/add', (req, res) => {
     const ret = menu.add(req.body as MenuFood)
     if (!ret) {

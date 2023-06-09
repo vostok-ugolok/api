@@ -40,10 +40,35 @@ app.get('/food/get', (req, res) => {
         avaiable = false;
     if (((_b = req.query.avaiable) === null || _b === void 0 ? void 0 : _b.toString().toLowerCase()) == 'true')
         avaiable = true;
-    console.log(avaiable);
     if (req.query.avaiable !== undefined)
         resp = resp.filter(food => food.avaiable === avaiable);
     res.send(JSON.stringify(resp));
+});
+app.post('/food/close/', (req, res) => {
+    const type = req.body.type;
+    if (type === undefined) {
+        res.send("Invalid parameters (type: string)");
+        return;
+    }
+    menu.data.map(food => {
+        if (food.identifier === type)
+            food.avaiable = false;
+    });
+    menu.serialize();
+    res.send('OK');
+});
+app.post('/food/open/', (req, res) => {
+    const type = req.body.type;
+    if (type === undefined) {
+        res.send("Invalid parameters (type: string)");
+        return;
+    }
+    menu.data.map(food => {
+        if (food.identifier === type)
+            food.avaiable = true;
+    });
+    menu.serialize();
+    res.send('OK');
 });
 app.post('/food/add', (req, res) => {
     const ret = menu.add(req.body);
