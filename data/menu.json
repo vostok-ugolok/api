@@ -15,7 +15,7 @@
     "image": "Оливье.jpg",
     "description": "Вкусный холодный салат",
     "mass": 200,
-    "avaiable": true,
+    "avaiable": false,
     "identifier": "salad/olivier"
   },
 

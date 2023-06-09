@@ -26,13 +26,24 @@ const io = new socket_io_1.Server(server, {
 });
 io.on('connection', (socket) => { io.emit('connection'); });
 app.get('/food/get', (req, res) => {
-    const filter = req.query.type;
+    var _a, _b;
+    let filter = req.query.type;
+    let resp = menu.data;
     if (filter === undefined)
-        res.send(JSON.stringify(menu.data));
+        filter = '';
     else if (filter.toString().includes('/'))
-        res.send(JSON.stringify(menu.data.filter(food => food.identifier === filter.toString())));
+        resp = resp.filter(food => food.identifier === filter.toString());
     else
-        res.send(JSON.stringify(menu.data.filter(food => food.identifier.split('/')[0] == filter.toString().split('/')[0])));
+        resp = resp.filter(food => food.identifier.split('/')[0] == filter.toString().split('/')[0]);
+    let avaiable;
+    if (((_a = req.query.avaiable) === null || _a === void 0 ? void 0 : _a.toString().toLowerCase()) == 'false')
+        avaiable = false;
+    if (((_b = req.query.avaiable) === null || _b === void 0 ? void 0 : _b.toString().toLowerCase()) == 'true')
+        avaiable = true;
+    console.log(avaiable);
+    if (req.query.avaiable !== undefined)
+        resp = resp.filter(food => food.avaiable === avaiable);
+    res.send(JSON.stringify(resp));
 });
 app.post('/food/add', (req, res) => {
     const ret = menu.add(req.body);

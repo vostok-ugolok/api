@@ -26,14 +26,24 @@ const io = new Server(server, {
 io.on('connection', (socket: any) => { io.emit('connection') });
 
 app.get('/food/get', (req, res) => {
-    const filter = req.query.type
-    if (filter === undefined)
-        res.send(JSON.stringify(menu.data))
+    let filter = req.query.type;
+    let resp = menu.data;
+
+    if (filter === undefined) filter = '';
 
     else if (filter.toString().includes('/'))
-        res.send(JSON.stringify(menu.data.filter(food => food.identifier === filter.toString())));
+        resp = resp.filter(food => food.identifier === filter!.toString());
 
-    else res.send(JSON.stringify(menu.data.filter(food => food.identifier.split('/')[0] == filter.toString().split('/')[0])))
+    else resp = resp.filter(food => food.identifier.split('/')[0] == filter!.toString().split('/')[0]);
+
+    let avaiable : boolean | undefined;
+    if (req.query.avaiable?.toString().toLowerCase() == 'false') avaiable = false;
+    if (req.query.avaiable?.toString().toLowerCase() == 'true') avaiable = true;
+
+    if (req.query.avaiable !== undefined)
+        resp = resp.filter(food => food.avaiable === avaiable)
+
+    res.send(JSON.stringify(resp));
 })
 
 app.post('/food/add', (req, res) => {
