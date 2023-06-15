@@ -1,0 +1,17 @@
+on:
+  push: 
+    branches:
+      - main
+      
+jobs: 
+  get_dist:
+    name: Select files from dist folder
+    runs-on: self-hosted
+    steps:
+      - run: download.sh
+      - run: select.sh
+  restart:
+    name: Start the server again
+    runs-on: self-hosted
+    steps:
+     - run: startup.sh
