@@ -9,8 +9,8 @@ jobs:
     name: Select files from dist folder
     runs-on: self-hosted
     steps:
-      - run: download.sh
-      - run: select.sh
+      - run: bash download.sh
+      - run: bash select.sh
   restart:
     name: Start the server again
     runs-on: self-hosted
