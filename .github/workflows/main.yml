@@ -5,14 +5,13 @@ on:
   workflow_dispatch: 
       
 jobs: 
-  get_dist:
+  download:
     name: Select files from dist folder
     runs-on: self-hosted
     steps:
       - run: bash ~/github-ci/download.sh
-      - run: bash ~/github-ci/select.sh
-  restart:
-    name: Start the server again
+  containerize:
+    name: Build a docker container
     runs-on: self-hosted
     steps:
-     - run: startup.sh
+     - run: bash ~/github-ci/containerize.sh
