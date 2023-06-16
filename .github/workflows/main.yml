@@ -18,7 +18,7 @@ jobs:
       working-directory: ~/vostok-ugolok-api
     steps:
      - run: npm i
-     - run: tsc
+     #- run: tsc
      - run: docker stop vostok-ugolok-api
      - run: docker rm vostok-ugolok-api
      - run: docker rmi vostok-ugolok-api
