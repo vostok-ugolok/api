@@ -165,7 +165,7 @@ app.post('/order/state/update', (req, res) => {
 })
 
 app.get('/story', (req, res) => {
-    res.send('Обнова от 22:13. НИКАКОГО ДОКЕРА')
+    res.send('Обнова от 22:16. НИКАКОГО ДОКЕРА')
 })
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
