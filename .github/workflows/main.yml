@@ -15,10 +15,4 @@ jobs:
     name: Build a docker container
     runs-on: self-hosted
     steps:
-     - run: npm i
-     - run: tsc
-     - run: docker stop vostok-ugolok-api
-     - run: docker rm vostok-ugolok-api
-     - run: docker rmi vostok-ugolok-api
-     - run: docker build -t vostok-ugolok-api .
-     - run: docker run -d --name vostok-ugolok-api -p 47474:4999 vostok-ugolok-api
+     - run: bash ~/github-ci/containerize.sh
