@@ -165,7 +165,7 @@ app.post('/order/state/update', (req, res) => {
 })
 
 app.get('/story', (req, res) => {
-    res.send('Обнова от 20:02. Щас закоммичу')
+    res.send('Обнова от 20:48. Щас закоммичу')
 })
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)

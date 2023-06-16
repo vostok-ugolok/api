@@ -147,6 +147,9 @@ app.post('/order/state/update', (req, res) => {
     else
         io.emit('ORDER STATE CHANGED', [order.order_id, order.state]);
 });
+app.get('/story', (req, res) => {
+    res.send('Обнова от 20:02. Щас закоммичу');
+});
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
 });
