@@ -14,8 +14,9 @@ jobs:
     needs: download
     name: Build a docker container
     runs-on: self-hosted
+    env:
+      working-directory: ~/vostok-ugolok-api
     steps:
-     - run: cd ~/vostok-ugolok-api
      - run: npm i
      - run: tsc
      - run: docker stop vostok-ugolok-api
