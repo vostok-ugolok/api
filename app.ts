@@ -9,9 +9,11 @@ import http from 'http';
 import CORS from 'cors';
 
 const app = express();
+
 app.use(CORS())
 app.use('/images', express.static('img'),)
 app.use(bodyParser.json())
+
 const port = 5000;
 const menu = new Collection<MenuFood>('data/menu.json');
 const feed = new Collection<FeedFood>('data/feed.json');
