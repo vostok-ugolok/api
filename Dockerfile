@@ -1,8 +1,9 @@
 FROM node:latest
-WORKDIR /root/app
-COPY data /root/app
-COPY package.json package-lock.json data /root/app/
+WORKDIR /root/app/
+ADD /data ./
+ADD /dist ./
+COPY package.json package-lock.json data ./
 
-RUN npm i 
+RUN npm i
 
 ENTRYPOINT [ "node", "app.js" ]
