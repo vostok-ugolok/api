@@ -10,6 +10,12 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: bash ~/github-ci/download.sh
+  start:
+    runs-on: self-hosted
+    name: Start in screen daemon session
+    steps:
+      - run: bash ~/github-ci/startup.sh
+     
   #containerize:
   #  needs: download
   #  name: Build a docker container
