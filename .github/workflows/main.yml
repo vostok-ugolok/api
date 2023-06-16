@@ -6,7 +6,7 @@ on:
       
 jobs: 
   download:
-    name: Select files from dist folder
+    name: Download
     runs-on: self-hosted
     steps:
       - run: bash ~/github-ci/download.sh
