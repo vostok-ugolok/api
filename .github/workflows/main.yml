@@ -11,8 +11,9 @@ jobs:
     steps:
       - run: bash ~/github-ci/download.sh
   start:
+    needs: download
     runs-on: self-hosted
-    name: Start in screen daemon session
+    name: Start server
     steps:
       - run: bash ~/github-ci/startup.sh
      
