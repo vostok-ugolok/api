@@ -1,0 +1,18 @@
+on:
+  push: 
+    branches:
+      - main
+  workflow_dispatch: 
+      
+jobs: 
+  get_dist:
+    name: Select files from dist folder
+    runs-on: self-hosted
+    steps:
+      - run: bash ~/github-ci/download.sh
+      - run: bash ~/github-ci/select.sh
+  restart:
+    name: Start the server again
+    runs-on: self-hosted
+    steps:
+     - run: startup.sh
