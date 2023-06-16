@@ -3,7 +3,11 @@ on:
     branches:
       - main
   workflow_dispatch: 
-      
+
+defaults:
+ run:
+  working-directory: ~/vostok-ugolok-api
+  
 jobs: 
   download:
     name: Select files from dist folder
