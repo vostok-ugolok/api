@@ -10,9 +10,9 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: bash ~/github-ci/download.sh
-  containerize:
-    needs: download
-    name: Build a docker container
-    runs-on: self-hosted
-    steps:
-     - run: bash ~/github-ci/containerize.sh
+  #containerize:
+  #  needs: download
+  #  name: Build a docker container
+  #  runs-on: self-hosted
+  #  steps:
+  #   - run: bash ~/github-ci/containerize.sh
