@@ -11,6 +11,7 @@ jobs:
     steps:
       - run: bash ~/github-ci/download.sh
   containerize:
+    needs: download
     name: Build a docker container
     runs-on: self-hosted
     steps:
