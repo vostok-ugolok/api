@@ -164,7 +164,7 @@ app.post('/images/load', (req, res) => {
     const file = fs_1.default.createWriteStream('img/' + name);
     const request = https_1.default.get(url, function (response) {
         if (response.statusCode != 200) {
-            res.send("Error loading file");
+            res.send("Error loading file: broken link");
             return;
         }
         response.pipe(file).on('error', (err) => console.log(err));
