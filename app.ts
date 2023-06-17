@@ -2,10 +2,12 @@ import express, { Express } from 'express';
 import Collection from './serializable_collection';
 import { FeedFood, MenuFood } from './food';
 import { ok } from 'assert';
+import fs from 'fs';
 import bodyParser from 'body-parser';
 import { Order } from './order';
 import { Server } from 'socket.io';
 import http from 'http';
+import https from 'https';
 import CORS from 'cors';
 
 const app = express();
@@ -171,8 +173,29 @@ app.post('/order/state/update', (req, res) => {
     else io.emit('ORDER STATE CHANGED', [order.order_id, order.state])
 })
 
+app.post('/images/load', (req, res) => {
+    const url = req.body.url;
+    const name = req.body.name;
+    if (url === undefined || name === undefined) {
+        res.send("Needed params: url and name")
+        return;
+    }
+    const file = fs.createWriteStream('img/' + name);
+    const request = https.get(url, function(response) {
+        if (response.statusCode != 200){
+            res.send("Error loading file: broken link")
+            return;
+        }
+        response.pipe(file).on('error', (err) => console.log(err));
+        file.on("finish", () => {
+            file.close();
+            res.send("OK")
+        });
+    });
+})
+
 app.get('/story', (req, res) => {
-    res.send('Обнова от 22:17. НИКАКОГО ДОКЕРА')
+    res.send('Обнова от 12')
 })
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)

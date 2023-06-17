@@ -5,16 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const serializable_collection_1 = __importDefault(require("./serializable_collection"));
+const fs_1 = __importDefault(require("fs"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const order_1 = require("./order");
 const socket_io_1 = require("socket.io");
 const http_1 = __importDefault(require("http"));
+const https_1 = __importDefault(require("https"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use('/images', express_1.default.static('img'));
 app.use(body_parser_1.default.json());
-const port = 4999;
+const port = 5000;
 const menu = new serializable_collection_1.default('data/menu.json');
 const feed = new serializable_collection_1.default('data/feed.json');
 const orders = new serializable_collection_1.default('data/orders.json');
@@ -90,9 +92,14 @@ app.post('/food/remove', (req, res) => {
 });
 app.get('/content/feed', (req, res) => res.send(JSON.stringify(feed.data)));
 app.post('/content/feed/set', (req, res) => {
-    feed.data = req.body;
-    feed.serialize();
-    res.send("OK");
+    try {
+        feed.data = req.body;
+        feed.serialize();
+        res.send("OK");
+    }
+    catch (_a) {
+        res.send('Feed not set');
+    }
 });
 app.get('/order/get', (req, res) => {
     if (req.query.id === undefined && req.query.ids == undefined)
@@ -147,8 +154,28 @@ app.post('/order/state/update', (req, res) => {
     else
         io.emit('ORDER STATE CHANGED', [order.order_id, order.state]);
 });
+app.post('/images/load', (req, res) => {
+    const url = req.body.url;
+    const name = req.body.name;
+    if (url === undefined || name === undefined) {
+        res.send("Needed params: url and name");
+        return;
+    }
+    const file = fs_1.default.createWriteStream('img/' + name);
+    const request = https_1.default.get(url, function (response) {
+        if (response.statusCode != 200) {
+            res.send("Error loading file");
+            return;
+        }
+        response.pipe(file).on('error', (err) => console.log(err));
+        file.on("finish", () => {
+            file.close();
+            res.send("OK");
+        });
+    });
+});
 app.get('/story', (req, res) => {
-    res.send('Обнова от 20:02. Щас закоммичу');
+    res.send('Обнова от 12');
 });
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
