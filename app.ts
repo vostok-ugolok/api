@@ -101,9 +101,14 @@ app.post('/food/remove', (req, res) => {
 app.get('/content/feed', (req, res) => res.send(JSON.stringify(feed.data)));
 
 app.post('/content/feed/set', (req, res) => {
-    feed.data = req.body as FeedFood[];
-    feed.serialize();
-    res.send("OK");
+    try{
+        feed.data = req.body as FeedFood[];
+        feed.serialize();
+        res.send("OK");
+    }
+    catch {
+        res.send('Feed not set')
+    }
 })
 
 app.get('/order/get', (req, res) => {
