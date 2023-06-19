@@ -175,7 +175,7 @@ app.post('/images/load', (req, res) => {
     });
 });
 app.get('/story', (req, res) => {
-    res.send('Обнова от 12');
+    res.send('Обнова от 20 июня)');
 });
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
