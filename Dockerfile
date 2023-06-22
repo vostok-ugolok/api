@@ -1,7 +1,7 @@
 FROM node:latest
 WORKDIR /root/app/
 ADD data ./data/
-ADD dist ./dist/
+ADD dist ./
 ADD img ./img/
 COPY package.json package-lock.json ./
 
