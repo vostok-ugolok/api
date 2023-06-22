@@ -1,8 +1,8 @@
 FROM node:latest
 WORKDIR /root/app/
-ADD /data ./
-ADD /dist ./
-ADD /img ./
+ADD /data ./data/
+ADD /dist ./dist/
+ADD /img ./img/
 COPY package.json package-lock.json data ./
 
 RUN npm i
