@@ -200,11 +200,3 @@ app.get('/story', (req, res) => {
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
 })
-
-// @app.route('/food/get', methods=['GET'])
-// @app.route('/food/add', methods=['POST'])
-// @app.route('/food/remove', methods=['POST'])
-// @app.route('/content/feed', methods=["GET"])
-// @app.route('/content/feed/set', methods=["POST"])
-// @app.route('/order/get', methods=["GET"])
-// @app.route('/order/add', methods=["POST"])
