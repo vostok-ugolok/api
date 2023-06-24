@@ -81,7 +81,15 @@ app.post('/food/open/', (req, res) => {
 })
 
 app.post('/food/add', (req, res) => {
-    const ret = menu.add(req.body as MenuFood)
+    const raw = req.body as MenuFood
+
+
+    // if (Object.keys(raw).sort().toString() !== ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()){
+    //     res.send("Data format error (name, price, image, description, mass, avaiable, identifier)")
+    //     return;
+    // }
+    const ret = menu.add(new MenuFood(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable))
+
     if (!ret) {
         res.send('Food already exists');
         return;
@@ -91,7 +99,7 @@ app.post('/food/add', (req, res) => {
 })
 
 app.post('/food/remove', (req, res) => {
-    const ret = menu.remove(req.body as MenuFood);
+    const ret = menu.remove(req.body);
     if (!ret){
         res.send('Food doesn\'t exitst');
         return;

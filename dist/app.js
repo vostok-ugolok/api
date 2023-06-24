@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const serializable_collection_1 = __importDefault(require("./serializable_collection"));
+const food_1 = require("./food");
 const fs_1 = __importDefault(require("fs"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const order_1 = require("./order");
@@ -73,7 +74,13 @@ app.post('/food/open/', (req, res) => {
     res.send('OK');
 });
 app.post('/food/add', (req, res) => {
-    const ret = menu.add(req.body);
+    const raw = req.body;
+    console.log(Object.keys(raw).sort().toString(), ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString());
+    if (Object.keys(raw).sort().toString() != ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()) {
+        res.send("Data format error (name, price, image, description, mass, avaiable, identifier)");
+        return;
+    }
+    const ret = menu.add(new food_1.MenuFood(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable));
     if (!ret) {
         res.send('Food already exists');
         return;
@@ -175,9 +182,8 @@ app.post('/images/load', (req, res) => {
     });
 });
 app.get('/story', (req, res) => {
-    res.send('Обнова от 20 июня)');
+    res.send('А в Восточном уголке морсик лучше чем в Суфре');
 });
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
 });
-

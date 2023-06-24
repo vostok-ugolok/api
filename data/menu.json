@@ -8,7 +8,6 @@
     "avaiable": true,
     "identifier": "salad/vinegret"
   },
-
   {
     "name": "Оливье",
     "price": 149,
@@ -18,7 +17,6 @@
     "avaiable": true,
     "identifier": "salad/olivier"
   },
-
   {
     "name": "Лагман",
     "price": 229,
@@ -27,5 +25,15 @@
     "mass": 400,
     "avaiable": true,
     "identifier": "soup/lagmane"
+  },
+  {
+    "name": "Пиво",
+    "identifier": "drink/alcohol/beer",
+    "price": 222,
+    "image": "Пиво.jpg",
+    "description": "Ыуауауауа",
+    "mass": 111,
+    "avaiable": true,
+    "unique_id": "drink/alcohol/beer"
   }
 ]

@@ -11,7 +11,7 @@ export class Food{
         public mass: number,
         public avaiable: boolean
     ) {
-            this.unique_id = (randomInt(899999) + 100000).toString()
+            this.unique_id = identifier
         }
 }
 

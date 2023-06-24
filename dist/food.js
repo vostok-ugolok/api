@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeedFood = exports.MenuFood = exports.Food = void 0;
-const crypto_1 = require("crypto");
 class Food {
     constructor(name, identifier, price, image, description, mass, avaiable) {
         this.name = name;
@@ -11,7 +10,7 @@ class Food {
         this.description = description;
         this.mass = mass;
         this.avaiable = avaiable;
-        this.unique_id = ((0, crypto_1.randomInt)(899999) + 100000).toString();
+        this.unique_id = identifier;
     }
 }
 exports.Food = Food;
