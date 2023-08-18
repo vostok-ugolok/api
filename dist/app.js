@@ -88,12 +88,15 @@ app.post('/food/add', (req, res) => {
     res.send('OK');
 });
 app.post('/food/remove', (req, res) => {
-    const ret = menu.remove(req.body);
-    if (!ret) {
-        res.send('Food doesn\'t exitst');
-        return;
+    for (const id of req.body) {
+        const corresponding_food = menu.data.find(fd => fd.identifier == id);
+        if (corresponding_food === undefined) {
+            res.send('Food doesn\'t exist');
+            return;
+        }
+        menu.remove(corresponding_food);
+        menu.serialize();
     }
-    menu.serialize();
     res.send('OK');
 });
 app.get('/content/feed', (req, res) => res.send(JSON.stringify(feed.data)));
