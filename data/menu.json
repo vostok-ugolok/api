@@ -33,7 +33,6 @@
     "image": "Пиво.jpg",
     "description": "Ыуауауауа",
     "mass": 111,
-    "avaiable": true,
-    "identifier": "drink/alcohol/beer"
+    "avaiable": true
   }
 ]

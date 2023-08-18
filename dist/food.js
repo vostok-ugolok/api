@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FeedFood = exports.MenuFood = exports.Food = void 0;
+exports.Food = void 0;
 class Food {
     constructor(name, identifier, price, image, description, mass, avaiable) {
         this.name = name;
@@ -14,12 +14,3 @@ class Food {
     }
 }
 exports.Food = Food;
-class MenuFood extends Food {
-}
-exports.MenuFood = MenuFood;
-class FeedFood extends Food {
-    constructor(name, identifier, price, image, description, mass) {
-        super(name, identifier, price, image, description, mass, true);
-    }
-}
-exports.FeedFood = FeedFood;

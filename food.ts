@@ -14,13 +14,3 @@ export class Food{
             this.unique_id = identifier
         }
 }
-
-export class MenuFood extends Food{}
-
-export class FeedFood extends Food{
-    constructor(name: string, identifier: string, price: number,
-    image: string, description: string, mass: number) {
-        super(name, identifier, price, image, description, mass, true);
-    }
-}
-

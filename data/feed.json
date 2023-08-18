@@ -1,26 +1,3 @@
 [
-  {
-    "name": "Василий Гайсен",
-    "price": 15000,
-    "image": "Веб.jpg",
-    "mass": 450,
-    "avaiable": true,
-    "dish_type": "Горячее"
-  },
-  {
-    "name": "Лагман",
-    "price": 549,
-    "image": "Лагман.jpg",
-    "description": "Вкусный суп",
-    "mass": 450,
-    "avaiable": true,
-    "dish_type": "Суп"
-  },
-  {
-    "name": "Салат",
-    "price": 149,
-    "mass": 190,
-    "avaiable": true,
-    "dish_type": "Салат"
-  }
+  "salad/vinegret"
 ]

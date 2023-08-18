@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import Collection from './serializable_collection';
-import { FeedFood, MenuFood } from './food';
+import { Food } from './food';
 import { ok } from 'assert';
 import fs from 'fs';
 import bodyParser from 'body-parser';
@@ -17,8 +17,8 @@ app.use('/images', express.static('img'),)
 app.use(bodyParser.json())
 
 const port = 5000;
-const menu = new Collection<MenuFood>('data/menu.json');
-const feed = new Collection<FeedFood>('data/feed.json');
+const menu = new Collection<Food>('data/menu.json');
+const feed = new Collection<string>('data/feed.json');
 const orders = new Collection<Order>('data/orders.json');
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -81,14 +81,13 @@ app.post('/food/open/', (req, res) => {
 })
 
 app.post('/food/add', (req, res) => {
-    const raw = req.body as MenuFood
-
+    const raw = req.body as Food
 
     // if (Object.keys(raw).sort().toString() !== ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()){
     //     res.send("Data format error (name, price, image, description, mass, avaiable, identifier)")
     //     return;
     // }
-    const ret = menu.add(new MenuFood(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable))
+    const ret = menu.add(new Food(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable))
 
     if (!ret) {
         res.send('Food already exists');
@@ -112,11 +111,13 @@ app.get('/content/feed', (req, res) => res.send(JSON.stringify(feed.data)));
 
 app.post('/content/feed/set', (req, res) => {
     try{
-        feed.data = req.body as FeedFood[];
+        feed.data = req.body;
         feed.serialize();
         res.send("OK");
     }
-    catch {
+    catch (e){
+        console.log(e);
+
         res.send('Feed not set')
     }
 })
@@ -138,7 +139,17 @@ app.post('/order/add', (req, res) => {
     }
     if (req.body.phone[0] != '+') req.body.phone = '+7' + req.body.phone.substring(1)
     const order = new Order(req.body.name, req.body.phone, req.body.adress, 'CREATED', req.body.content);
-    while (orders.ids().includes(order.order_id)) order.assign_id();
+
+    let finished;
+
+    while (!finished){
+        finished = true;
+        for (const ord of orders.data){
+            if (ord.order_id != order.order_id) continue;
+            order.assign_id();
+            finished = false;
+        }
+    }
 
     const ret = orders.add(order)
     if (!ret) {

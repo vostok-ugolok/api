@@ -29,22 +29,15 @@ class SerializeableCollection {
         this.path = path;
         this.data = JSON.parse(fs.readFileSync(this.path, 'utf-8'));
     }
-    ids() {
-        const names = [];
-        for (const f of this.data) {
-            names.push(f.unique_id);
-        }
-        return names;
-    }
     add(element) {
-        if (!this.ids().includes(element.unique_id)) {
+        if (!this.data.includes(element)) {
             this.data.push(element);
             return true;
         }
         return false;
     }
     remove(element) {
-        if (element.unique_id in this.ids()) {
+        if (this.data.includes(element)) {
             this.data = this.data.filter(f => f != element);
             return true;
         }

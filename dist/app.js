@@ -75,12 +75,11 @@ app.post('/food/open/', (req, res) => {
 });
 app.post('/food/add', (req, res) => {
     const raw = req.body;
-    console.log(Object.keys(raw).sort().toString(), ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString());
-    if (Object.keys(raw).sort().toString() != ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()) {
-        res.send("Data format error (name, price, image, description, mass, avaiable, identifier)");
-        return;
-    }
-    const ret = menu.add(new food_1.MenuFood(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable));
+    // if (Object.keys(raw).sort().toString() !== ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()){
+    //     res.send("Data format error (name, price, image, description, mass, avaiable, identifier)")
+    //     return;
+    // }
+    const ret = menu.add(new food_1.Food(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable));
     if (!ret) {
         res.send('Food already exists');
         return;
@@ -104,7 +103,8 @@ app.post('/content/feed/set', (req, res) => {
         feed.serialize();
         res.send("OK");
     }
-    catch (_a) {
+    catch (e) {
+        console.log(e);
         res.send('Feed not set');
     }
 });
@@ -125,8 +125,16 @@ app.post('/order/add', (req, res) => {
     if (req.body.phone[0] != '+')
         req.body.phone = '+7' + req.body.phone.substring(1);
     const order = new order_1.Order(req.body.name, req.body.phone, req.body.adress, 'CREATED', req.body.content);
-    while (orders.ids().includes(order.order_id))
-        order.assign_id();
+    let finished;
+    while (!finished) {
+        finished = true;
+        for (const ord of orders.data) {
+            if (ord.order_id != order.order_id)
+                continue;
+            order.assign_id();
+            finished = false;
+        }
+    }
     const ret = orders.add(order);
     if (!ret) {
         res.send('Order already exists');
@@ -182,7 +190,7 @@ app.post('/images/load', (req, res) => {
     });
 });
 app.get('/story', (req, res) => {
-    res.send('А в Восточном уголке морсик лучше чем в Суфре');
+    res.send('Работает!!!');
 });
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`);
