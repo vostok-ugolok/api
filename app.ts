@@ -203,7 +203,7 @@ app.post('/images/load', (req, res) => {
 })
 
 app.get('/story', (req, res) => {
-    res.send('А в Восточном уголке морсик лучше чем в Суфре')
+    res.send('Живоййййййййййййййййййййййййййййййййййй')
 })
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
