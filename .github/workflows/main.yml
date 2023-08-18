@@ -55,6 +55,6 @@ jobs:
             mkdir /root/api
             cd /root/api
             tar -xvf ../deploy.tar
-            docker build . --tag api:latest
+            docker build -t api .
             docker stop api || true  && docker rm api || true 
-            docker run -p ${{ vars.PORT }}:5000 -d --name=api --restart unless-stopped api:latest
+            docker run -p ${{ vars.PORT }}:5000 -d --name=api --restart unless-stopped api
