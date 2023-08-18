@@ -55,4 +55,4 @@ jobs:
             tar -xvf ../deploy.tar
             docker build . --tag api:latest
             docker stop api || true  && docker rm api || true 
-            docker run -p ${{ variables.PORT }}:5000 -d --name=api --restart unless-stopped api:latest
+            docker run -p ${{ vars.PORT }}:5000 -d --name=api --restart unless-stopped api:latest
