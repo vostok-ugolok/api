@@ -28,7 +28,7 @@ jobs:
           npm i
           npm run build
           mkdir ../build
-          cp -r data img Dockerfile dist ../build
+          cp -r data img Dockerfile dist package.json package-lock.json ../build
           tar -cvf deploy.tar ../build/
 
       - name: copy file via ssh password
