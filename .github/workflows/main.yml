@@ -30,6 +30,7 @@ jobs:
           mkdir ../build
           cp -TR data ../build
           cp -TR img ../build
+          cp -TR Dockerfile ../build
           cd dist
           cp -TR . ../../build 
           cd ..
