@@ -203,7 +203,7 @@ app.post('/images/load', (req, res) => {
 })
 
 app.get('/story', (req, res) => {
-    res.send('Ку')
+    res.send('Работает!!!')
 })
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
