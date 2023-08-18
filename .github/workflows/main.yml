@@ -28,7 +28,11 @@ jobs:
           npm i
           npm run build
           mkdir ../build
-          cp -TR data img dist/* ../build
+          cp -TR data ../build
+          cp -TR img ../build
+          cd dist
+          cp -TR . ../../build 
+          cd ..
           tar -cvf deploy.tar ../build/
 
       - name: copy file via ssh password
