@@ -34,7 +34,8 @@ jobs:
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASS }}
+          key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          passphrase: ${{ secrets.DEPLOY_PASS }}
           port: 22
           source: "deploy.tar"
           target: "/root/"
@@ -47,11 +48,11 @@ jobs:
           password: ${{ secrets.DEPLOY_PASS }}
           port: 22
           script: |
-            rm -rf /root/new-api
-            mkdir /root/new-api
-            cd /root/new-api
+            rm -rf /root/api
+            mkdir /root/api
+            cd /root/api
             tar -xvf ../deploy.tar
-            cd /root/new-api/build
-            docker build . --tag newapi:latest
-            docker stop newapi || true  && docker rm newapi || true 
-            docker run -p 3050:4000 -d --name=newapi --restart unless-stopped newapi:latest
+            cd /root/api/build
+            docker build . --tag api:latest
+            docker stop api || true  && docker rm api || true 
+            docker run -p 3050:4000 -d --name=api --restart unless-stopped api:latest
