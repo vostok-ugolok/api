@@ -51,31 +51,25 @@ app.get('/food/get', (req, res) => {
 })
 
 app.post('/food/close/', (req, res) => {
-    const type = req.body.type
-    if (type === undefined){
-        res.send("Invalid parameters (type: string)")
-        return;
+    for (let id of req.body){
+        menu.data.map(food => {
+            if (food.identifier === id)
+                food.avaiable = false;
+        })
     }
 
-    menu.data.map(food => {
-        if (food.identifier === type)
-            food.avaiable = false;
-    })
     menu.serialize();
     res.send('OK')
 })
 
 app.post('/food/open/', (req, res) => {
-    const type = req.body.type
-    if (type === undefined){
-        res.send("Invalid parameters (type: string)")
-        return;
+    for (let id of req.body){
+        menu.data.map(food => {
+            if (food.identifier === id)
+                food.avaiable = true;
+        })
     }
 
-    menu.data.map(food => {
-        if (food.identifier === type)
-            food.avaiable = true;
-    })
     menu.serialize();
     res.send('OK')
 })
@@ -135,6 +129,12 @@ app.get('/order/get', (req, res) => {
         res.send(JSON.stringify(orders.data.filter(e => req.query.ids?.toString().includes(e.order_id))))
 })
 
+/**
+ * @param name Имя клиента
+ * @param phone Номер телефона клиента
+ * @param adress Адрес доставки (в случае заказа на месте – адрес кафе)
+ * @param content Список идентификаторов блюд 
+ */
 app.post('/order/add', (req, res) => {
     if ([req.body.name, req.body.phone, req.body.adress, req.body.content].includes(undefined) ||
             /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/.exec(req.body.phone) === null){
@@ -164,7 +164,11 @@ app.post('/order/add', (req, res) => {
     res.send(order.order_id)
 })
 
-app.post('/order/state/update', (req, res) => {
+/**
+ * @param order_id Идентификатор заказа (заменяется query-параметром)
+ * @param new_state Новое состояние (READY - готов)
+ */
+app.post('/order/update', (req, res) => {
     let id = req.body.order_id;
     if (id === undefined) id = req.query.id;
 
@@ -220,6 +224,7 @@ app.post('/images/load', (req, res) => {
 app.get('/story', (req, res) => {
     res.send('Работает!!!')
 })
+
 server.listen(port, () => {
     console.log(`⚡ Сервер запущен на порте ${port}`)
 })
