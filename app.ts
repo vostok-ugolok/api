@@ -75,12 +75,12 @@ app.post('/food/open/', (req, res) => {
 })
 
 app.post('/food/add', (req, res) => {
-    const raw = req.body as Food
+    const raw = req.body
 
-    // if (Object.keys(raw).sort().toString() !== ['name', 'price', 'image', 'description', 'mass', 'avaiable', 'indentifier'].sort().toString()){
-    //     res.send("Data format error (name, price, image, description, mass, avaiable, identifier)")
-    //     return;
-    // }
+    if ([raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable].includes(undefined)){
+        res.send("Data format error (name, price, image, description, mass, avaiable, identifier)")
+        return;
+    }
     const ret = menu.add(new Food(raw.name, raw.identifier, raw.price, raw.image, raw.description, raw.mass, raw.avaiable))
 
     if (!ret) {
